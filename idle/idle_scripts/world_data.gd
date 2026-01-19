@@ -3,7 +3,7 @@ class_name WorldData
 
 # Chunk size in grid cells
 const CHUNK_WIDTH := 32
-const CHUNK_HEIGHT := 32
+const CHUNK_HEIGHT := 16
 
 # Dictionary of chunks
 # key: Vector2i(chunk_x, chunk_y)
@@ -15,7 +15,7 @@ var chunks := {}
 @onready var world_collision: WorldCollision = $"../WorldCollision"
 
 func _ready() -> void:
-	world_collision.setup(self)
+	World.data = self
 
 func _chunk_key(grid_x: int, grid_y: int) -> Vector2i:
 
@@ -58,6 +58,8 @@ func damage_brick(grid_x: int, grid_y: int, dmg: int):
 	chunks[ckey][lkey]["hp"] -= dmg
 	if chunks[ckey][lkey]["hp"] <= 0:
 		chunks[ckey].erase(lkey)
+		SignalBus.brick_removed.emit(Vector2i(grid_x, grid_y))
+
 
 func get_chunk(chunk_key: Vector2i) -> Dictionary:
 	if not chunks.has(chunk_key):

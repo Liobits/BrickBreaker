@@ -11,11 +11,15 @@ class_name WorldRenderer
 
 # Active visual chunks
 var active_chunks := {}
+var brick_nodes := {} 
+
 
 func _ready() -> void:
 	seed_wall()
 	camera = get_viewport().get_camera_2d()
 	call_deferred("update_visible_chunks")
+	SignalBus.brick_removed.connect(_on_brick_removed)
+
 
 func _process(_delta):
 	update_visible_chunks()
@@ -37,6 +41,10 @@ func update_visible_chunks():
 
 	var min_grid_y = floori((start_y - rect.end.y) / brick_size.y)
 	var max_grid_y = ceil((start_y - rect.position.y) / brick_size.y)
+
+	# World top clamp
+	min_grid_y = max(min_grid_y, 0)
+	max_grid_y = max(max_grid_y, 0)
 
 	var min_chunk := Vector2i(
 		floori(min_grid_x / WorldData.CHUNK_WIDTH) - view_margin,
@@ -78,12 +86,19 @@ func spawn_chunk(chunk_key: Vector2i):
 			var gx := chunk_key.x * WorldData.CHUNK_WIDTH + lx
 			var gy := chunk_key.y * WorldData.CHUNK_HEIGHT + ly
 
+			if gy < 0:
+				continue
+
+			var grid := Vector2i(gx, gy)
+			
 			var brick := brick_scene.instantiate()
 			brick.position = Vector2(
-				gx * brick_size.x,
-				start_y - gy * brick_size.y
+				gx * brick_size.x + brick_size.x * 0.5,
+				start_y - (gy + 1) * brick_size.y + brick_size.y * 0.5
 			)
 			container.add_child(brick)
+			brick_nodes[grid] = brick
+
 
 func clear_chunk(chunk_key: Vector2i):
 	active_chunks[chunk_key].queue_free()
@@ -94,3 +109,11 @@ func seed_wall(rows := 50, columns := 100):
 		for x in columns:
 			world_data.ensure_brick(x, y)
 	
+
+func _on_brick_removed(grid: Vector2i) -> void:
+	if not brick_nodes.has(grid):
+		return
+
+	var brick = brick_nodes[grid]
+	brick.queue_free()
+	brick_nodes.erase(grid)
