@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://bko1g4t7mur2f"]
+
+[ext_resource type="Script" uid="uid://c1q8keiippwdf" path="res://idle/idle_scripts/world_renderer.gd" id="1_aghso"]
+[ext_resource type="PackedScene" uid="uid://d2n7225unteis" path="res://general/scenes/brick.tscn" id="2_6rmnk"]
+[ext_resource type="Script" uid="uid://cant004hsn7v1" path="res://idle/idle_scripts/world_data.gd" id="2_7i3lk"]
+[ext_resource type="Script" uid="uid://c6m8mnirpybvd" path="res://idle/idle_scripts/world_collision.gd" id="4_0228p"]
+
+[node name="IdleBrickWall" type="Node2D"]
+
+[node name="BrickContainer" type="Node2D" parent="."]
+script = ExtResource("1_aghso")
+brick_scene = ExtResource("2_6rmnk")
+
+[node name="WorldCollision" type="Node2D" parent="."]
+script = ExtResource("4_0228p")
+
+[node name="WorldData" type="Node2D" parent="."]
+script = ExtResource("2_7i3lk")

@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://bj642hfd0juob"]
+
+[ext_resource type="PackedScene" uid="uid://ccwdvsfnvmmrt" path="res://general/scenes/canon.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://bko1g4t7mur2f" path="res://idle/idle_scenes/idle_brick_wall.tscn" id="2_skoht"]
+[ext_resource type="Script" uid="uid://ch3b7l3mi1xq5" path="res://general/scripts/camera_2d.gd" id="3_iq6as"]
+[ext_resource type="Texture2D" uid="uid://lqs3kuihs7ed" path="res://general/art/Brick.png" id="4_g7of2"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Canon" parent="." instance=ExtResource("1_o5qli")]
+position = Vector2(594, 611)
+
+[node name="IdleBrickWall" parent="." instance=ExtResource("2_skoht")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(581, 325)
+script = ExtResource("3_iq6as")
+
+[node name="Brick" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0, 1)
+position = Vector2(486, 581)
+texture = ExtResource("4_g7of2")

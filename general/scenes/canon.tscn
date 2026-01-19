@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccwdvsfnvmmrt"]
+
+[ext_resource type="Texture2D" uid="uid://davkyxrspfc88" path="res://general/art/Canon-base.png" id="1_knihn"]
+[ext_resource type="Script" uid="uid://cnj1iylxnf38w" path="res://general/scripts/canon.gd" id="1_rh5lf"]
+[ext_resource type="Texture2D" uid="uid://iiy17ox7vhlv" path="res://general/art/Canon.png" id="2_0q4by"]
+[ext_resource type="PackedScene" uid="uid://dvxerbunt6bo0" path="res://general/scenes/ball.tscn" id="2_4aawh"]
+
+[node name="Canon" type="Node2D"]
+script = ExtResource("1_rh5lf")
+ball_scene = ExtResource("2_4aawh")
+
+[node name="CanonBase" type="Sprite2D" parent="."]
+position = Vector2(2, -31)
+texture = ExtResource("1_knihn")
+
+[node name="CanonBody" type="Sprite2D" parent="."]
+position = Vector2(0, -3)
+texture = ExtResource("2_0q4by")
+offset = Vector2(18.235, 0)
+
+[node name="BallReleasePoint" type="Marker2D" parent="CanonBody"]
+position = Vector2(39, 0)
+
+[node name="ShootingTimer" type="Timer" parent="."]
