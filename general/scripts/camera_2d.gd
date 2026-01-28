@@ -7,7 +7,7 @@ class_name CameraController
 # Zoom settings
 @export var zoom_step := 0.2
 @export var min_zoom := 0.25
-@export var max_zoom := 1.0
+@export var max_zoom := 4.0
 @export var zoom_smooth_speed := 5.0
 
 var target_zoom := Vector2.ONE
