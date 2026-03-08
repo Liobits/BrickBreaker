@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://xk7xggw4tw1n"]
+
+[ext_resource type="Script" uid="uid://c6cv6anbh5pt4" path="res://rogue_like/Scripts/rogue_like_brick_wall.gd" id="1_38nav"]
+
+[node name="RogueLikeBrickWall" type="Node2D"]
+script = ExtResource("1_38nav")
